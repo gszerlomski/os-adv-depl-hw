@@ -1,0 +1,61 @@
+[OSEv3:vars]
+
+
+
+
+
+
+
+
+##########################################################################
+### OpenShift Hosts
+###########################################################################
+[OSEv3:children]
+lb
+masters
+etcd
+nodes
+nfs
+#glusterfs
+
+[lb]
+loadbalancer1.97e9.internal
+
+[masters]
+master1.97e9.internal
+master2.97e9.internal
+master3.97e9.internal
+
+[etcd]
+master1.97e9.internal
+master2.97e9.internal
+master3.97e9.internal
+
+[nodes]
+## These are the masters
+master1.97e9.internal openshift_hostname=master1.97e9.internal  openshift_node_labels="{'env': 'master', 'cluster': '97e9'}"
+master2.97e9.internal openshift_hostname=master2.97e9.internal  openshift_node_labels="{'env': 'master', 'cluster': '97e9'}"
+master3.97e9.internal openshift_hostname=master3.97e9.internal  openshift_node_labels="{'env': 'master', 'cluster': '97e9'}"
+
+## These are infranodes
+infranode1.97e9.internal openshift_hostname=infranode1.97e9.internal  openshift_node_labels="{'env':'infra', 'cluster': '97e9'}"
+infranode2.97e9.internal openshift_hostname=infranode2.97e9.internal  openshift_node_labels="{'env':'infra', 'cluster': '97e9'}"
+
+## These are regular nodes
+node1.97e9.internal openshift_hostname=node1.97e9.internal  openshift_node_labels="{'env':'app', 'cluster': '97e9'}"
+node2.97e9.internal openshift_hostname=node2.97e9.internal  openshift_node_labels="{'env':'app', 'cluster': '97e9'}"
+node3.97e9.internal openshift_hostname=node3.97e9.internal  openshift_node_labels="{'env':'app', 'cluster': '97e9'}"
+
+## These are CNS nodes
+# support1.97e9.internal openshift_hostname=support1.97e9.internal  openshift_node_labels="{'env':'glusterfs', 'cluster': '97e9'}"
+# support2.97e9.internal openshift_hostname=support2.97e9.internal  openshift_node_labels="{'env':'glusterfs', 'cluster': '97e9'}"
+# support3.97e9.internal openshift_hostname=support3.97e9.internal  openshift_node_labels="{'env':'glusterfs', 'cluster': '97e9'}"
+
+[nfs]
+support1.97e9.internal openshift_hostname=support1.97e9.internal
+
+#[glusterfs]
+# support1.97e9.internal glusterfs_devices='[ "/dev/xvdd" ]'
+# support2.97e9.internal glusterfs_devices='[ "/dev/xvdd" ]'
+# support3.97e9.internal glusterfs_devices='[ "/dev/xvdd" ]'
+

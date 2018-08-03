@@ -33,7 +33,7 @@ echo -- Installing screen --
 #yum -y install screen
 
 echo -- Retrieving certificate for LDAP --
-wget http://ipa.shared.example.opentlc.com/ipa/config/ca.crt -O ./ipa-ca.crt
+#wget http://ipa.shared.example.opentlc.com/ipa/config/ca.crt -O ./ipa-ca.crt
 
 
 echo -- Checking Openshift Prerequisites --

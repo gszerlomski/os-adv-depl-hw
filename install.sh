@@ -29,6 +29,9 @@ cat hosts.template | sed -e "s:{GUID}:$GUID:g;s:{DOMAIN_INTERNAL}:$INTERNAL:g;s:
 echo -- Installing atomic packages --
 #yum -y install atomic-openshift-utils atomic-openshift-clients
 
+echo -- Installing screen
+#yum -y install screen
+
 echo -- Retrieving certificate for LDAP --
 wget http://ipa.shared.example.opentlc.com/ipa/config/ca.crt -O ./ipa-ca.crt
 
@@ -36,7 +39,7 @@ wget http://ipa.shared.example.opentlc.com/ipa/config/ca.crt -O ./ipa-ca.crt
 echo -- Checking Openshift Prerequisites --
 if ansible-playbook -f 20 -i ./hosts /usr/share/ansible/openshift-ansible/playbooks/prerequisites.yml ; then
     echo -- Prerequisites successful. Installing Openshift --
-
+    screen ansible-playbook -f 20 -i ./hosts /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml
 
 
 else

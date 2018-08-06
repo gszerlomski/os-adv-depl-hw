@@ -24,7 +24,7 @@ echo -- Current path = $CURRENT_PATH --
 
 
 echo  "-- Preparing hosts file --"
-cat hosts.template | sed -e "s:{GUID}:$GUID:g;s:{DOMAIN_INTERNAL}:$INTERNAL:g;s:{DOMAIN_EXTERNAL}:$EXTERNAL:g;s:{PATH}:$CURRENT_PATH:g;" > hosts
+cat ./templates/hosts.template | sed -e "s:{GUID}:$GUID:g;s:{DOMAIN_INTERNAL}:$INTERNAL:g;s:{DOMAIN_EXTERNAL}:$EXTERNAL:g;s:{PATH}:$CURRENT_PATH:g;" > hosts
 
 echo -- Installing atomic packages --
 #yum -y install atomic-openshift-utils atomic-openshift-clients
@@ -37,13 +37,30 @@ echo -- Retrieving certificate for LDAP --
 
 
 echo -- Checking Openshift Prerequisites --
-if ansible-playbook -f 20 -i ./hosts /usr/share/ansible/openshift-ansible/playbooks/prerequisites.yml ; then
+#if ansible-playbook -f 20 -i ./hosts /usr/share/ansible/openshift-ansible/playbooks/prerequisites.yml ; then
     echo -- Prerequisites successful. Installing Openshift --
-    screen -S os-install -m bash -c "sudo ansible-playbook -f 20 -i $CURRENT_PATH/hosts /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml"
+#    screen -S os-install -m bash -c "sudo ansible-playbook -f 20 -i $CURRENT_PATH/hosts /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml"
     
     echo -- Copying kube config --
-    ansible masters[0] -b -m fetch -a "src=/root/.kube/config dest=/root/.kube/config flat=yes"
-   
+#    ansible masters[0] -b -m fetch -a "src=/root/.kube/config dest=/root/.kube/config flat=yes"
+    
+    echo -- Creating user groups --
+#    oc adm groups new alpha Amy Andrew
+#    oc adm groups new beta Brian Betty
+#    oc adm groups new common
+
+    echo -- Creating nfs storage --
+#    ssh support1.2954.internal "bash -s" -- < create_pvs.sh
+    mkdir pvs
+    
+    for i in {1..50} 
+    do
+      cat ./templates/pvs/pv${i}.template | sed -e "s:{GUID}:$GUID:g" > ./pvs/pv${i}; 
+    done
+    
+
+
+ 
 else
     echo -- Prerequisites failed --
 fi

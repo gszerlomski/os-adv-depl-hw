@@ -50,7 +50,7 @@ echo -- Checking Openshift Prerequisites --
 #    oc adm groups new common
 
     echo -- Creating nfs storage --
-#    ssh support1.2954.internal "bash -s" -- < create_pvs.sh
+#    ssh support1.2954.internal "bash -s" -- < ./config/infra/create_pvs.sh
     rm -rf pvs; mkdir pvs
     
     for i in {1..50} 

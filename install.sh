@@ -51,7 +51,7 @@ echo -- Checking Openshift Prerequisites --
 
     echo -- Creating nfs storage --
 #    ssh support1.2954.internal "bash -s" -- < create_pvs.sh
-    mkdir pvs
+    rm -rf pvs; mkdir pvs
     
     for i in {1..50} 
     do
@@ -61,6 +61,6 @@ echo -- Checking Openshift Prerequisites --
 
 
  
-else
-    echo -- Prerequisites failed --
-fi
+#else
+#    echo -- Prerequisites failed --
+#fi

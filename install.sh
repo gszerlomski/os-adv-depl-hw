@@ -58,7 +58,12 @@ echo -- Checking Openshift Prerequisites --
       cat ./templates/pvs/pv${i}.template | sed -e "s:{GUID}:$GUID:g" > ./pvs/pv${i}; 
     done
     
+    ansible nodes -i ./hosts -m shell -a "docker pull registry.access.redhat.com/openshift3/ose-recycler:latest"
+    ansible nodes -i ./hosts -m shell -a "docker tag registry.access.redhat.com/openshift3/ose-recycler:latest registry.access.redhat.com/openshift3/ose-recycler:v3.9.30"
 
+
+#    cat ./pvs/* | oc create -f -
+    
 
  
 #else

@@ -1,3 +1,4 @@
 hosts
 ipa-ca.crt
 pvs
+os-pipeline.yaml

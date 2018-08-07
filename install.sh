@@ -1,4 +1,6 @@
-le getopts g:i:e:p: option
+#!/bin/bash
+
+while getopts g:i:e:p: option
 do
 case "${option}"
 in
@@ -86,7 +88,8 @@ if ansible-playbook -f 20 -i ./hosts /usr/share/ansible/openshift-ansible/playbo
     echo -- Running pipeline --
     oc start-build os-pipeline -n os-tasks-${GUID}-dev
 
-
+    echo -- Set up autoscaler --
+    oc autoscale dc/os-tasks --min 1 --max 10 --cpu-percent=80 -n os-tasks-${GUID}-prod
 
 
     echo -- Set up dedicated nodes --
